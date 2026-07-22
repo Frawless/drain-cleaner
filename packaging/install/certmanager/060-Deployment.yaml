@@ -44,6 +44,15 @@ spec:
                   fieldPath: metadata.name
           args:
             - /opt/strimzi/bin/drain_cleaner_run.sh
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           volumeMounts:
             - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
               name: kube-api-access
